@@ -81,8 +81,10 @@ void CocoaEventHandler::sendMouseEvent(int xDis, int yDis)
     NSInteger height = screenRect.size.height;
     NSPoint mouseLoc = [NSEvent mouseLocation];
 
-    mouseLoc.x += xDis;
-    mouseLoc.y -= yDis;
+    if (CGCursorIsVisible()) {
+        mouseLoc.x += xDis;
+        mouseLoc.y -= yDis;
+    }
 
     CGEventRef move = CGEventCreateMouseEvent(
             NULL,
